@@ -7,7 +7,7 @@ This guide will help you set up a custom AI stack using PyTorch, Llama, and Kube
 - [Developing Your AI Model with PyTorch](#developing-your-ai-model-with-pytorch)
 - [Containerizing the Model with Docker](#containerizing-the-model-with-docker)
 - [Deploying on Kubernetes](#deploying-on-kubernetes)
-  - [Create a Kubernetes Cluster](#create-a-kubernetes-cluster)
+  - [Create a Kubernetes Cluster](*create-a-kubernetes-cluster)
   - [Create Kubernetes Manifests](#create-kubernetes-manifests)
   - [Expose the Service](#expose-the-service)
 - [Integrating Llama for Enhanced Capabilities](#integrating-llama-for-enhanced-capabilities)
