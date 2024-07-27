@@ -70,3 +70,21 @@ for epoch in range(5):
 
 # Save the model
 torch.save(model.state_dict(), 'model.pth')
+```
+## Containerizing the Model with Docker
+Next, containerize the model using Docker. Create a Dockerfile for your application:
+```Dockerfile
+FROM python:3.8-slim
+
+WORKDIR /app
+
+COPY requirements.txt requirements.txt
+RUN pip install -r requirements.txt
+
+COPY . .
+
+CMD ["python", "serve.py"]
+```
+
+
+
