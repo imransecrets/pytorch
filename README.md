@@ -110,47 +110,53 @@ if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
 ```
 ## Deploying on Kubernetes
-### Create a Kubernetes Cluster
-For local development, you can use Minikube:
-```bash
-minikube start
-```
-### Create Kubernetes Manifests
-Create a deployment and service for your application. Save the following as deployment.yaml:
-```yaml
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: ai-model-deployment
-spec:
-  replicas: 2
-  selector:
-    matchLabels:
-      app: ai-model
-  template:
-    metadata:
-      labels:
+  ### Create a Kubernetes Cluster
+  For local development, you can use Minikube:
+  ```bash
+  minikube start
+  ```
+  ### Create Kubernetes Manifests
+  Create a deployment and service for your application. Save the following as deployment.yaml:
+  ```yaml
+  apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    name: ai-model-deployment
+  spec:
+    replicas: 2
+    selector:
+      matchLabels:
         app: ai-model
-    spec:
-      containers:
-      - name: ai-model
-        image: your-docker-image:latest
-        ports:
-        - containerPort: 5000
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: ai-model-service
-spec:
-  selector:
-    app: ai-model
-  ports:
-    - protocol: TCP
-      port: 80
-      targetPort: 5000
-  type: LoadBalancer
-```
+    template:
+      metadata:
+        labels:
+          app: ai-model
+      spec:
+        containers:
+        - name: ai-model
+          image: your-docker-image:latest
+          ports:
+          - containerPort: 5000
+  ---
+  apiVersion: v1
+  kind: Service
+  metadata:
+    name: ai-model-service
+  spec:
+    selector:
+      app: ai-model
+    ports:
+      - protocol: TCP
+        port: 80
+        targetPort: 5000
+    type: LoadBalancer
+  ```
+  ### Expose the Service
+  To access your service, you might need to get the service URL:
+  ```bash
+  minikube service ai-model-service --url
+  ```
+
 
 
 
