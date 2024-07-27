@@ -110,7 +110,7 @@ if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
 ```
 ## Deploying on Kubernetes
-  * Create a Kubernetes Cluster
+  ## * Kubernetes Cluster
   For local development, you can use Minikube:
   ```bash
   minikube start
