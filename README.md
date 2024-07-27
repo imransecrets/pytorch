@@ -29,6 +29,7 @@ Ensure you have the necessary tools and software installed on your machine:
 First, create and train your AI model using PyTorch. Here’s a simple example of training a neural network:
 
 ```python
+# python
 import torch
 import torch.nn as nn
 import torch.optim as optim
@@ -74,6 +75,7 @@ torch.save(model.state_dict(), 'model.pth')
 ## Containerizing the Model with Docker
 Next, containerize the model using Docker. Create a Dockerfile for your application:
 ```Dockerfile
+# Dockerfile
 FROM python:3.8-slim
 
 WORKDIR /app
@@ -89,6 +91,7 @@ requirements.txt should include PyTorch and any other dependencies.
 
 Create a serve.py script to handle inference requests:
 ```python
+# python
 import torch
 from flask import Flask, request, jsonify
 from model import SimpleNN  # Your model definition
@@ -113,11 +116,13 @@ if __name__ == '__main__':
   ## Kubernetes Cluster
   For local development, you can use Minikube:
   ```bash
+  #bash
   minikube start
   ```
   ### Create Kubernetes Manifests
   Create a deployment and service for your application. Save the following as deployment.yaml:
   ```yaml
+  # yaml
   apiVersion: apps/v1
   kind: Deployment
   metadata:
@@ -154,10 +159,12 @@ if __name__ == '__main__':
   ### Expose the Service
   To access your service, you might need to get the service URL:
   ```bash
+  #bash
   minikube service ai-model-service --url
   ```
 ## Integrating Llama for Enhanced Capabilities
 ```python
+# python
 Llama (LlamaIndex) can be used to enhance the capabilities of your AI stack. Integrate it within your Flask app or create a separate microservice for Llama functionalities.
 from llama_index import LlamaIndex
 
@@ -173,6 +180,7 @@ def llama():
 ## Monitoring and Scaling
 Utilize Kubernetes tools like Prometheus and Grafana for monitoring and Helm for managing deployments.
 ```bash
+#bash
 # bash
 helm install stable/prometheus-operator --name prometheus-operator
 helm install stable/grafana --name grafana
