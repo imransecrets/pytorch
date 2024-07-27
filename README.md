@@ -85,6 +85,72 @@ COPY . .
 
 CMD ["python", "serve.py"]
 ```
+requirements.txt should include PyTorch and any other dependencies.
+
+Create a serve.py script to handle inference requests:
+```python
+import torch
+from flask import Flask, request, jsonify
+from model import SimpleNN  # Your model definition
+
+app = Flask(__name__)
+model = SimpleNN()
+model.load_state_dict(torch.load('model.pth'))
+model.eval()
+
+@app.route('/predict', methods=['POST'])
+def predict():
+    data = request.json
+    inputs = torch.tensor(data['inputs'])
+    with torch.no_grad():
+        outputs = model(inputs)
+    return jsonify({'outputs': outputs.tolist()})
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5000)
+```
+## Deploying on Kubernetes
+### Create a Kubernetes Cluster
+For local development, you can use Minikube:
+```bash
+minikube start
+```
+### Create Kubernetes Manifests
+Create a deployment and service for your application. Save the following as deployment.yaml:
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ai-model-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: ai-model
+  template:
+    metadata:
+      labels:
+        app: ai-model
+    spec:
+      containers:
+      - name: ai-model
+        image: your-docker-image:latest
+        ports:
+        - containerPort: 5000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ai-model-service
+spec:
+  selector:
+    app: ai-model
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 5000
+  type: LoadBalancer
+```
 
 
 
