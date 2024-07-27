@@ -156,7 +156,29 @@ if __name__ == '__main__':
   ```bash
   minikube service ai-model-service --url
   ```
+## Integrating Llama for Enhanced Capabilities
+```python
+Llama (LlamaIndex) can be used to enhance the capabilities of your AI stack. Integrate it within your Flask app or create a separate microservice for Llama functionalities.
+from llama_index import LlamaIndex
 
+# Initialize LlamaIndex
+index = LlamaIndex()
+
+@app.route('/llama', methods=['POST'])
+def llama():
+    data = request.json
+    result = index.query(data['query'])
+    return jsonify({'result': result})
+```
+## Monitoring and Scaling
+Utilize Kubernetes tools like Prometheus and Grafana for monitoring and Helm for managing deployments.
+```bash
+# bash
+helm install stable/prometheus-operator --name prometheus-operator
+helm install stable/grafana --name grafana
+```
+## Conclusion
+By following these steps, you’ll have a custom AI stack using PyTorch, Llama, and Kubernetes, capable of handling deployment, scaling, and management of machine learning models. This setup ensures your AI applications are robust, scalable, and ready for production.
 
 
 
